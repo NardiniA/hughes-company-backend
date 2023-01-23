@@ -1,0 +1,17 @@
+::-webkit-scrollbar {
+    background: var(--theme-elevation-100) !important;
+    width: 6px !important;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--theme-elevation-300) !important;
+    border-radius: 3px !important;
+}
+
+.collection-edit__sidebar-fields {
+    height: 100%;
+}
+
+.collection-edit__sidebar {
+    background: var(--theme-bg) !important;
+}
