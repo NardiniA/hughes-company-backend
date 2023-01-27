@@ -21,7 +21,6 @@ const Categories: CollectionConfig = {
         create: isAdminOrEditor,
         update: isAdminOrEditor,
         delete: isAdminOrEditor,
-        admin: isAdminOrEditor,
     },
     labels: {
         singular: "Category",

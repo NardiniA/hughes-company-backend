@@ -6,6 +6,7 @@ import url from "../fields/url";
 import payload from "payload";
 import slug from "../fields/slug";
 import inlineRichText from "../fields/inlineRichText";
+import RowLabel from "../components/RowLabel";
 
 const Sites: CollectionConfig = {
     slug: "sites",
@@ -149,9 +150,7 @@ const Sites: CollectionConfig = {
                 navigation({
                     admin: {
                         components: {
-                            RowLabel: ({ data, index }) => {
-                                return data?.label || `Link ${String(index).padStart(2, '0')}`;
-                            },
+                            RowLabel: RowLabel,
                         }
                     }
                 }),
@@ -243,9 +242,7 @@ const Sites: CollectionConfig = {
                     admin: {
                         initCollapsed: true,
                         components: {
-                            RowLabel: ({ data, index }) => {
-                                return data?.keyword || `Slide ${String(index).padStart(2, '0')}`;
-                            },
+                            RowLabel: RowLabel,
                         },
                     },
                 },

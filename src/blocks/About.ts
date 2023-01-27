@@ -71,13 +71,6 @@ const About: Block = {
                     required: true,
                 },
             ],
-            admin: {
-                components: {
-                    RowLabel: ({ data, index }) => {
-                        return data?.image?.alt || `Image ${String(index).padStart(2, '0')}`;
-                    },
-                }
-            }
         }
     ]
 }

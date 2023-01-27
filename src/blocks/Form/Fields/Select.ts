@@ -1,4 +1,5 @@
 import { Block } from "payload/types";
+import RowLabel from "../../../components/RowLabel";
 import { nameAndLabel, placeholderAndSize, required } from "../../../fields/form";
 
 const Select: Partial<Block> = {
@@ -37,9 +38,7 @@ const Select: Partial<Block> = {
             ],
             admin: {
                 components: {
-                    RowLabel: ({ data, index }) => {
-                        return data?.label || `Option ${String(index).padStart(2, '0')}`;
-                    },
+                    RowLabel: RowLabel,
                 }
             }
         },

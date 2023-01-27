@@ -12,7 +12,6 @@ const FormSubmissions: Partial<CollectionConfig> = {
         update: () => false,
         // Only admins can delete
         delete: isAdmin,
-        admin: isAdminOrEditor,
     },
     admin: {
         group: "Admin",

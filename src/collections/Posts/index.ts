@@ -28,7 +28,6 @@ const Posts: CollectionConfig = {
         create: isAdminOrEditor,
         update: isAdminOrEditor,
         delete: isAdminOrEditor,
-        admin: isAdminOrHasSiteAccess,
     },
     labels: {
         singular: "Post",
