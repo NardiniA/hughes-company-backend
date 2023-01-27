@@ -55,10 +55,6 @@ const CoffeeBreak: CollectionConfig = {
                 value: "jigsaws",
             }, 
             {
-                label: "Sudoku",
-                value: "sudoku",
-            }, 
-            {
                 label: "Wordsearch",
                 value: "wordsearch",
             }, 
@@ -95,21 +91,6 @@ const CoffeeBreak: CollectionConfig = {
         ],
         admin: {
             condition: (_, siblingData) => siblingData?.type === "jigsaws",
-        }
-    },
-    {
-        name: "sudoku",
-        type: "group",
-        fields: [
-            {
-                name: "puzzleId",
-                label: "Puzzle ID - WIP",
-                type: "number",
-                required: true,
-            },
-        ],
-        admin: {
-            condition: (_, siblingData) => siblingData?.type === "sudoku",
         }
     },
     {

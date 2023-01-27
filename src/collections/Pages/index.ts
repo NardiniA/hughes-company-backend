@@ -1,5 +1,4 @@
 import { CollectionConfig } from "payload/types";
-import { isAdmin } from "../../access/isAdmin";
 import { isAdminOrEditor } from "../../access/isAdminOrEditor";
 import { isAdminOrHasSiteAccess } from "../../access/isAdminOrHasSiteAccess";
 import populateFullTitle from "./hooks/populateFullTitle";
@@ -15,6 +14,8 @@ import getBySlug from "../../endpoints/getBySlug";
 import getDocsBySite from "../../endpoints/getDocsBySite";
 import { isAdminOrHasSiteAccessOrPublished } from "../../access/isAdminOrHasSiteAccessOrPublished";
 import { regenPage } from "../../utilities/regenPage";
+import EmbeddedFrame from "../../blocks/EmbeddedFrame";
+import Cards from "../../blocks/Cards";
 
 const Pages: CollectionConfig = {
     slug: "pages",
@@ -74,10 +75,12 @@ const Pages: CollectionConfig = {
                             minRows: 1,
                             blocks: [
                                 About,
-                                RichText,
+                                Cards,
                                 EmbeddedForm,
+                                EmbeddedFrame,
                                 Form,
                                 RecentPosts,
+                                RichText,
                             ],
                         },
                     ],
