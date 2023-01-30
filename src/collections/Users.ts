@@ -73,21 +73,21 @@ const Users: CollectionConfig = {
         position: "sidebar",
       },
     },
-    // {
-    //   name: "sites",
-    //   label: "Sites user has access to",
-    //   type: "relationship",
-    //   relationTo: "sites",
-    //   saveToJWT: true,
-    //   hasMany: true,
-    //   access: {
-    //     create: isAdminFieldLevel,
-    //     update: isAdminFieldLevel,
-    //   },
-    //   admin: {
-    //     position: "sidebar",
-    //   },
-    // },
+    {
+      name: "sites",
+      label: "Sites user has access to",
+      type: "relationship",
+      relationTo: "sites",
+      saveToJWT: true,
+      hasMany: true,
+      access: {
+        create: isAdminFieldLevel,
+        update: isAdminFieldLevel,
+      },
+      admin: {
+        position: "sidebar",
+      },
+    },
   ],
 };
 
