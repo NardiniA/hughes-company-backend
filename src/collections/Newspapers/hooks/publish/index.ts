@@ -19,9 +19,9 @@ const publish: CollectionAfterChangeHook = async ({ req: { payload }, doc, opera
             id: doc?.sites,
         });
 
-        if (!site?.name || !site?.url) throw new Error("Unable to get site");
+        if (!site?.name || !site?.url || !site?.listId) throw new Error("Unable to get site");
 
-        const contacts = await getContacts();
+        const contacts = await getContacts(site?.listId);
 
         if (!contacts) throw new Error("No contacts found");
 

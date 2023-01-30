@@ -19,6 +19,9 @@ import Advertising from './collections/Advertising';
 
 export default buildConfig({
   serverURL: 'http://localhost:3000',
+  rateLimit: {
+    trustProxy: true,
+  },
   admin: {
     user: Users.slug,
     css: path.resolve(__dirname, 'styles/custom.scss'),
