@@ -88,20 +88,6 @@ const Users: CollectionConfig = {
         position: "sidebar",
       },
     },
-    {
-      name: "collections",
-      label: "Collections user has access to",
-      type: "relationship",
-      relationTo: ["pages", "posts", "today-categories", "newspapers", "media"],
-      hasMany: true,
-      access: {
-        create: isAdminFieldLevel,
-        update: isAdminFieldLevel,
-      },
-      admin: {
-        position: "sidebar",
-      },
-    },
   ],
 };
 
