@@ -10,8 +10,7 @@
     "strict": false,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "outDir": "./dist/",
-    "rootDir": "./src/",
+    "outDir": "./dist",
     "jsx": "react"
   },
   "include": [
