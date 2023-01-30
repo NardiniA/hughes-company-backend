@@ -18,7 +18,7 @@ import CoffeeBreak from './collections/CoffeeBreak';
 import Advertising from './collections/Advertising';
 
 export default buildConfig({
-  serverURL: 'http://localhost:3000',
+  serverURL: process.env.PAYLOAD_SERVER_URL,
   rateLimit: {
     trustProxy: true,
   },
