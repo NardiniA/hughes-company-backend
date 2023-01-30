@@ -6,6 +6,7 @@ import getBySlug from "../../endpoints/getBySlug";
 import sites from "../../fields/sites";
 import slug from "../../fields/slug";
 import url from "../../fields/url";
+import { regenPage } from "../../utilities/regenPage";
 import getByType from "./endpoints/getByType";
 
 const CoffeeBreak: CollectionConfig = {
@@ -22,91 +23,95 @@ const CoffeeBreak: CollectionConfig = {
   },
   admin: {
     useAsTitle: "title",
-    defaultColumns: [
-        "title",
-        "sites",
-        "type"
-    ],
+    defaultColumns: ["title", "sites", "type"],
     group: "Content",
   },
-  endpoints: [
-    getByType,
-    getBySlug("coffee-break"),
-  ],
+  endpoints: [getByType, getBySlug("coffee-break")],
+  hooks: {
+    afterChange: [
+      ({ req: { payload }, doc }) => {
+        regenPage({
+          doc,
+          collection: "coffee-break",
+          payload,
+        });
+      },
+    ],
+  },
   fields: [
     {
-        name: "title",
-        label: "Title",
-        type: "text",
-        required: true,
+      name: "title",
+      label: "Title",
+      type: "text",
+      required: true,
     },
     slug(),
     {
-        name: "type",
-        label: "Type",
-        type: "radio",
-        options: [
-            {
-                label: "Crosswords",
-                value: "crosswords",
-            }, 
-            {
-                label: "Jigsaws",
-                value: "jigsaws",
-            }, 
-            {
-                label: "Wordsearch",
-                value: "wordsearch",
-            }, 
-        ],
-        admin: {
-            layout: "horizontal",
+      name: "type",
+      label: "Type",
+      type: "radio",
+      options: [
+        {
+          label: "Crosswords",
+          value: "crosswords",
         },
-        required: true,
-        defaultValue: "crosswords",
+        {
+          label: "Jigsaws",
+          value: "jigsaws",
+        },
+        {
+          label: "Wordsearch",
+          value: "wordsearch",
+        },
+      ],
+      admin: {
+        layout: "horizontal",
+      },
+      required: true,
+      defaultValue: "crosswords",
     },
     {
-        name: "crosswords",
-        type: "group",
-        fields: [
-            {
-                name: "puzzleId",
-                label: "Puzzle ID",
-                type: "number",
-                required: true,
-            },
-        ],
-        admin: {
-            condition: (_, siblingData) => siblingData?.type === "crosswords",
-        }
+      name: "crosswords",
+      type: "group",
+      fields: [
+        {
+          name: "puzzleId",
+          label: "Puzzle ID",
+          type: "number",
+          required: true,
+        },
+      ],
+      admin: {
+        condition: (_, siblingData) => siblingData?.type === "crosswords",
+      },
     },
     {
-        name: "jigsaws",
-        type: "group",
-        fields: [
-            url({
-                name: "jigsawUrl",
-                label: "Jigsaw URL"
-            }),
-        ],
-        admin: {
-            condition: (_, siblingData) => siblingData?.type === "jigsaws",
-        }
+      name: "jigsaws",
+      type: "group",
+      fields: [
+        url({
+          name: "jigsawUrl",
+          label: "Jigsaw URL",
+        }),
+      ],
+      admin: {
+        condition: (_, siblingData) => siblingData?.type === "jigsaws",
+      },
     },
     {
-        name: "wordsearch",
-        type: "group",
-        fields: [
-            {
-                name: "puzzleId",
-                label: "Puzzle ID",
-                type: "number",
-                required: true,
-            },
-        ],
-        admin: {
-            condition: (_, siblingData) => siblingData?.type === "wordsearch",
-        }
+      name: "wordsearch",
+      type: "group",
+      fields: [
+        {
+          name: "puzzleId",
+          label: "Puzzle ID",
+          type: "number",
+          required: true,
+        },
+      ],
+      admin: {
+        condition: (_, siblingData) => siblingData?.type === "wordsearch",
+      },
     },
     sites(),
   ],

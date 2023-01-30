@@ -43,7 +43,7 @@ const Sites: CollectionConfig = {
         },
         create: isAdmin,
         update: isAdminOrHasSiteAccess,
-        delete: isAdmin,
+        delete: () => false,
     },
     admin: {
         useAsTitle: "name",

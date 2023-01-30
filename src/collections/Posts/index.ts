@@ -6,7 +6,7 @@ import getBySlug from "../../endpoints/getBySlug";
 import getDocsBySite from "../../endpoints/getDocsBySite";
 import { regenPage } from "../../utilities/regenPage";
 import { isAdminOrHasSiteAccessOrPublished } from "../../access/isAdminOrHasSiteAccessOrPublished";
-import { isAdminOrHasSiteAccess } from "../../access/isAdminOrHasSiteAccess";
+import { formatPreviewURL } from "../../utilities/formatPreviewURL";
 
 const Posts: CollectionConfig = {
     slug: "posts",
@@ -19,9 +19,7 @@ const Posts: CollectionConfig = {
             "sites",
         ],
         group: "Today",
-        preview: ({ sites, slug }) => {
-            return `https://pershore-times.vercel.app/today/${slug}`;
-        }
+        preview: (doc) => formatPreviewURL("posts", doc),
     },
     access: {
         read: isAdminOrHasSiteAccessOrPublished(true),
@@ -45,7 +43,7 @@ const Posts: CollectionConfig = {
             ({ req: { payload }, doc }) => {
                 regenPage({
                     doc,
-                    collection: "pages",
+                    collection: "posts",
                     payload
                 });
             }
