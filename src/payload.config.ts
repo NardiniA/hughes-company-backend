@@ -13,7 +13,7 @@ import Categories from './collections/Categories';
 import Newspapers from './collections/Newspapers';
 import Form from './collections/Form';
 import FormSubmissions from './collections/FormSubmissions';
-import Fields from "./blocks/form/Fields";
+import Fields from "./blocks/Form/Fields";
 import CoffeeBreak from './collections/CoffeeBreak';
 import Advertising from './collections/Advertising';
 
