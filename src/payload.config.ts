@@ -17,6 +17,12 @@ import Fields from "./blocks/Form/Fields";
 import CoffeeBreak from './collections/CoffeeBreak';
 import Advertising from './collections/Advertising';
 
+const serverCors = [
+  "https://pershore-times.vercel.app",
+  "https://upton-times.vercel.app",
+  process.env.PAYLOAD_APP_URL,
+].filter(Boolean);
+
 export default buildConfig({
   serverURL: process.env.PAYLOAD_SERVER_URL,
   rateLimit: {
@@ -66,7 +72,5 @@ export default buildConfig({
       uploadsCollection: "media",
     }),
   ],
-  cors: [
-    ...process.env.PAYLOAD_APP_URL?.split(","),
-  ].filter(Boolean),
+  cors: serverCors,
 });
