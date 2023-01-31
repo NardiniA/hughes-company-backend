@@ -67,6 +67,6 @@ export default buildConfig({
     }),
   ],
   cors: [
-    ...process.env.PAYLOAD_APP_URL?.split(" "),
+    ...process.env.PAYLOAD_APP_URL?.split(","),
   ].filter(Boolean),
 });
