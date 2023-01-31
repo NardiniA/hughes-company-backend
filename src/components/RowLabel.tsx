@@ -12,7 +12,7 @@ type RowLabelArgs = {
 
 const RowLabel: React.ComponentType<RowLabelArgs> = ({ data, index }) => {
   return (
-    <div>{data?.title || data?.name || `Slide ${String(index).padStart(2, "0")}`}</div>
+    <div>{data?.title || data?.name || data?.label || data?.keyword || `Slide ${String(index).padStart(2, "0")}`}</div>
   )
 }
 

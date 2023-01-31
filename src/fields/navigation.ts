@@ -2,6 +2,7 @@ import { Field } from "payload/types";
 import link from "./link";
 import { MenuLink } from "../blocks/MenuColumnBlocks/MenuLink";
 import deepMerge from "../utilities/deepMerge";
+import RowLabel from "../components/RowLabel";
 
 type Navigation = (overrides?: Partial<Field>) => Field;
 
@@ -70,6 +71,11 @@ const navigation: Navigation = (overrides): Field => deepMerge<Field, Partial<Fi
                 }
             })
         ],
+        admin: {
+            components: {
+                RowLabel: RowLabel,
+            }
+        }
     },
     overrides,
 );

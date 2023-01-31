@@ -54,7 +54,6 @@ const Newspapers: CollectionConfig = {
           type: "date",
           defaultValue: () => {
             const d = new Date();
-            d.setHours(0, 0, 0, 0);
             return d;
           },
           admin: {
