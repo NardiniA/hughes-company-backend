@@ -10,21 +10,6 @@ export const regenPage = async ({
     collection: string,
     payload: Payload
 }): Promise<void> => {
-    if (collection === "sites") {
-        try {
-            const res = await fetch("");
-
-            if (res.ok) {
-                payload.logger.info(`Rebuilding site`);
-            }
-            else {
-                payload.logger.error(`Error rebuilding site`);
-            }
-        } catch (err) {
-            payload.logger.error(`Error hitting rebuilding site`);
-        }
-    }
-
     const path = await formatPagePath(collection, doc);
 
     const site = await payload.findByID({
@@ -42,7 +27,6 @@ export const regenPage = async ({
 
         if (res.ok) {
             payload.logger.info(`Revalidated path ${path}`);
-            console.log(await res.json());
         }
         else {
             payload.logger.error(`Error revalidating path ${path}`);

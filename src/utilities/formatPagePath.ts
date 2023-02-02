@@ -35,10 +35,6 @@ export const formatPagePath = async (collection: string, doc: any): Promise<stri
                 const todayPaths = await getTodayTagsPosts(doc);
                 paths.push(...todayPaths);
                 break;
-            case "today-categories":
-                prefix = "/today/tags";
-                paths.push("/today/tags");
-                break;
             case "newspapers":
                 prefix = "/newspapers";
                 paths.push("/newspapers");

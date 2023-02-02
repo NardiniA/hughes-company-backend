@@ -4,7 +4,7 @@ import slug from "../fields/slug";
 import getBySlug from "../endpoints/getBySlug";
 import CategorySummary from "../components/CategorySummary";
 import sites from "../fields/sites";
-import { regenPage } from "../utilities/regenPage";
+import { regenSite } from "../utilities/regenSite";
 import getDocsBySite from "../endpoints/getDocsBySite";
 
 const Categories: CollectionConfig = {
@@ -28,9 +28,9 @@ const Categories: CollectionConfig = {
   hooks: {
     afterChange: [
       ({ req: { payload }, doc }) => {
-        regenPage({
+        regenSite({
           doc,
-          collection: "posts",
+          collection: "sites",
           payload,
         });
       },
