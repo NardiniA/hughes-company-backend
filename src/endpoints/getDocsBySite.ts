@@ -19,7 +19,7 @@ const getDocsBySite: GetDocsBySite = (collection = "pages", overrides) => deepMe
                             in: [req?.params?.site],
                         },
                     },
-                    limit: +req?.params?.limit || 10,
+                    limit: +req?.params?.limit || 10_000,
                     page: +req?.params?.page || 1,
                 });
 

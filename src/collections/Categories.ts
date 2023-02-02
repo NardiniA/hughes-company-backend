@@ -5,6 +5,7 @@ import getBySlug from "../endpoints/getBySlug";
 import CategorySummary from "../components/CategorySummary";
 import sites from "../fields/sites";
 import { regenPage } from "../utilities/regenPage";
+import getDocsBySite from "../endpoints/getDocsBySite";
 
 const Categories: CollectionConfig = {
   slug: "today-categories",
@@ -23,7 +24,7 @@ const Categories: CollectionConfig = {
     singular: "Category",
     plural: "Categories",
   },
-  endpoints: [getBySlug("today-categories")],
+  endpoints: [getBySlug("today-categories"), getDocsBySite("today-categories")],
   hooks: {
     afterChange: [
       ({ req: { payload }, doc }) => {
