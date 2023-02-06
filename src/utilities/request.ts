@@ -16,8 +16,6 @@ export const request = async (url: any, options: any): Promise<Response> => {
         });
 
         if (!req.ok) {
-            console.log(await req.json());
-            console.log(req);
             throw new Error("Unable to make request", {
                 cause: {
                     req,

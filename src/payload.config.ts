@@ -28,10 +28,6 @@ export default buildConfig({
   rateLimit: {
     trustProxy: true,
   },
-  admin: {
-    user: Users.slug,
-    css: path.resolve(__dirname, 'styles/custom.scss'),
-  },
   collections: [
     Pages,
     Newspapers,
@@ -44,10 +40,10 @@ export default buildConfig({
     Media,
   ],
   typescript: {
-    outputFile: path.resolve(__dirname, 'payload-types.ts'),
+    outputFile: path.resolve(__dirname, "payload-types.ts"),
   },
   graphQL: {
-    schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
+    schemaOutputFile: path.resolve(__dirname, "generated-schema.graphql"),
   },
   plugins: [
     cloudinaryPlugin(),
@@ -63,14 +59,32 @@ export default buildConfig({
       parentFieldSlug: "parent",
       breadcrumbsFieldSlug: "breadcrumbs",
       generateLabel: (_, doc) => doc.title as string,
-      generateURL: (docs) => docs.reduce((url, doc) => `${url}/${doc.slug}`, ""),
+      generateURL: (docs) =>
+        docs.reduce((url, doc) => `${url}/${doc.slug}`, ""),
     }),
     seo({
-      collections: [
-        "pages",
-      ],
+      collections: ["pages"],
       uploadsCollection: "media",
     }),
   ],
   cors: serverCors,
+  admin: {
+    user: Users.slug,
+    css: path.resolve(__dirname, "styles/custom.scss"),
+    webpack: (config) => ({
+      ...config,
+      resolve: {
+        ...config.resolve,
+        alias: {
+          ...config.resolve.alias,
+          react: path.resolve(__dirname, "../node_modules/react"),
+          "react-dom": path.resolve(__dirname, "../node_modules/react-dom"),
+          "react-router-dom": path.resolve(
+            __dirname,
+            "../node_modules/react-router-dom"
+          ),
+        },
+      },
+    }),
+  },
 });

@@ -6,8 +6,9 @@ import url from "../../fields/url";
 import { regenPage } from "../../utilities/regenPage";
 import getByIssue from "./endpoints/getByIssue";
 import subscribe from "./endpoints/subscribe";
+import publish from "./endpoints/publish";
 import populateFullTitle from "./hooks/populateFullTitle";
-import publish from "./hooks/publish";
+import Publish from "../../components/Publish";
 
 const Newspapers: CollectionConfig = {
   slug: "newspapers",
@@ -19,13 +20,12 @@ const Newspapers: CollectionConfig = {
   },
   admin: {
     useAsTitle: "fullTitle",
-    defaultColumns: ["fullTitle", "issue", "sites"],
+    defaultColumns: ["fullTitle", "issue", "published", "sites"],
     group: "Content",
   },
-  endpoints: [getByIssue, subscribe],
+  endpoints: [getByIssue, subscribe, publish],
   hooks: {
     afterChange: [
-      publish,
       ({ req: { payload }, doc }) => {
         regenPage({
           doc,
@@ -99,6 +99,30 @@ const Newspapers: CollectionConfig = {
     sites({
       hasMany: false,
     }),
+    {
+      name: "published",
+      label: "Published",
+      type: "checkbox",
+      admin: {
+        position: "sidebar",
+        readOnly: true,
+        components: {
+          Field: () => null,
+        }
+      },
+      defaultValue: false,
+    },
+    {
+      name: "publishButton",
+      type: "ui",
+      admin: {
+        position: "sidebar",
+        components: {
+          Field: Publish
+        },
+        condition: (data, siblingData) => !siblingData?.published,
+      },
+    },
   ],
 };
 

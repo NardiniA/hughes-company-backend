@@ -86,6 +86,7 @@ const Users: CollectionConfig = {
       },
       admin: {
         position: "sidebar",
+        isSortable: true,
       },
     },
   ],

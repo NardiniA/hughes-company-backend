@@ -6,7 +6,6 @@ import getBySlug from "../../endpoints/getBySlug";
 import getDocsBySite from "../../endpoints/getDocsBySite";
 import { regenPage } from "../../utilities/regenPage";
 import { isAdminOrHasSiteAccessOrPublished } from "../../access/isAdminOrHasSiteAccessOrPublished";
-import { formatPreviewURL } from "../../utilities/formatPreviewURL";
 
 const Posts: CollectionConfig = {
     slug: "posts",
@@ -19,7 +18,6 @@ const Posts: CollectionConfig = {
             "sites",
         ],
         group: "Today",
-        preview: (doc) => formatPreviewURL("posts", doc),
     },
     access: {
         read: isAdminOrHasSiteAccessOrPublished(true),
@@ -96,6 +94,7 @@ const Posts: CollectionConfig = {
             required: true,
             admin: {
                 position: "sidebar",
+                isSortable: true,
             },
         },
         sites(),
@@ -107,8 +106,12 @@ const Posts: CollectionConfig = {
             hasMany: true,
             required: true,
             admin: {
-                position: "sidebar",
+                isSortable: true,
             },
+            validate: (val) => {
+                if (val?.length === 3) return true;
+                return "Must have 3 adverts."; 
+            }
         }
     ],
 }

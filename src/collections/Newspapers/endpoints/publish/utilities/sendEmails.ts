@@ -1,9 +1,9 @@
 import { request } from "../../../../../utilities/request";
 
 type SendEmails = {
-  status: number,
-  response: any,
-}
+  status: number;
+  response: any;
+};
 
 export const sendEmails = async (data: object): Promise<SendEmails> => {
   if (data) {
