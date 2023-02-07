@@ -16,7 +16,7 @@ const getTodayTagsPosts = async (doc: any): Promise<string[]> => {
 
         return ["/today", "/today/tags", ...newPaths];
     }
-    return ["/today", "/today/tags"];
+    return ["/today", "/today/tags", "/"];
 }
 
 export const formatPagePath = async (collection: string, doc: any): Promise<string[]> => {    
