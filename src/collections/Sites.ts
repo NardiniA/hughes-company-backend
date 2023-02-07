@@ -8,6 +8,7 @@ import slug from "../fields/slug";
 import inlineRichText from "../fields/inlineRichText";
 import RowLabel from "../components/RowLabel";
 import { regenSite } from "../utilities/regenSite";
+import TriggerRebuild from "../components/TriggerRebuild";
 
 const Sites: CollectionConfig = {
   slug: "sites",
@@ -125,6 +126,16 @@ const Sites: CollectionConfig = {
           },
         }),
       ],
+    },
+    {
+      name: "triggerRebuild",
+      type: "ui",
+      admin: {
+        position: "sidebar",
+        components: {
+          Field: TriggerRebuild,
+        },
+      },
     },
     slug("name", {
       label: "Site Slug",

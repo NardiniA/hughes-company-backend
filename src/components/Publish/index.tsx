@@ -14,7 +14,7 @@ const Publish: React.FC = () => {
     text: "Newspaper sent out!",
   });
 
-  const onClose = () => {
+  const onClose = (): void => {
     setShowBanner(false);
   }
 
