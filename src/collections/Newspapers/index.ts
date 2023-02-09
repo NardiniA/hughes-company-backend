@@ -27,7 +27,7 @@ const Newspapers: CollectionConfig = {
   },
   endpoints: [getByIssue, subscribe, publishEndpoint],
   hooks: {
-    // beforeChange: [publish],
+    beforeChange: [publish],
     afterChange: [
       ({ req: { payload }, doc }) => {
         regenPage({
