@@ -20,10 +20,12 @@ const TriggerRebuild: React.FC = () => {
 
   const handleClick = async (): Promise<void> => {
     setShowBanner(false);
+    // @ts-ignore
+    const deploy: URL = publishedDoc["deployHook"];
 
-    if (!!publishedDoc && !!publishedDoc["deployHook"]) {
+    if (!!publishedDoc && deploy) {
       try {
-        const req = await fetch(publishedDoc["deployHook"]);
+        const req = await fetch(deploy);
 
         if (!req?.ok) {
           throw new Error("Unable to rebuild website", {
