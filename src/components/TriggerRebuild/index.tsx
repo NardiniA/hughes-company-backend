@@ -5,18 +5,18 @@ import { useDocumentInfo } from "payload/dist/admin/components/utilities/Documen
 const TriggerRebuild: React.FC = () => {
   const { publishedDoc } = useDocumentInfo();
 
-    const [showbanner, setShowBanner] = useState<boolean>(false);
-    const [banner, setBanner] = useState<{
-      type: "error" | "success" | "info" | "default";
-      text: string;
-    }>({
-      type: "info",
-      text: "Newspaper sent out!",
-    });
+  const [showbanner, setShowBanner] = useState<boolean>(false);
+  const [banner, setBanner] = useState<{
+    type: "error" | "success" | "info" | "default";
+    text: string;
+  }>({
+    type: "info",
+    text: "Newspaper sent out!",
+  });
 
-    const onClose = (): void => {
-      setShowBanner(false);
-    };
+  const onClose = (): void => {
+    setShowBanner(false);
+  };
 
   const handleClick = async (): Promise<void> => {
     setShowBanner(false);
@@ -48,8 +48,7 @@ const TriggerRebuild: React.FC = () => {
           text: err?.cause?.req?.statusText || "Unable to rebuild website",
         });
       }
-    }
-    else {
+    } else {
       setBanner({
         type: "error",
         text: "No published document available",
@@ -57,36 +56,37 @@ const TriggerRebuild: React.FC = () => {
     }
     setShowBanner(true);
     return;
-  }
+  };
 
-  if (!!publishedDoc) return (
-    <>
-      <Button
-        className="w-100"
-        type="button"
-        el="button"
-        onClick={handleClick}
-        tooltip="Rebuild entire website"
-        buttonStyle="secondary"
-      >
-        Trigger Site Rebuild
-      </Button>
+  if (!!publishedDoc)
+    return (
+      <>
+        <Button
+          className="w-100"
+          type="button"
+          el="button"
+          onClick={handleClick}
+          tooltip="Rebuild entire website"
+          buttonStyle="secondary"
+        >
+          Trigger Site Rebuild
+        </Button>
 
-      {showbanner && banner?.text && banner?.type && (
-        <div>
-          <Banner
-            className="w-100 text-left justify-content-between"
-            type={banner?.type}
-            icon={<X />}
-            alignIcon="right"
-            onClick={onClose}
-          >
-            {banner?.text}
-          </Banner>
-        </div>
-      )}
-    </>
-  );
+        {showbanner && banner?.text && banner?.type && (
+          <div>
+            <Banner
+              className="w-100 text-left justify-content-between"
+              type={banner?.type}
+              icon={<X />}
+              alignIcon="right"
+              onClick={onClose}
+            >
+              {banner?.text}
+            </Banner>
+          </div>
+        )}
+      </>
+    );
   return null;
 };
 

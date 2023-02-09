@@ -6,9 +6,11 @@ import url from "../../fields/url";
 import { regenPage } from "../../utilities/regenPage";
 import getByIssue from "./endpoints/getByIssue";
 import subscribe from "./endpoints/subscribe";
-import publish from "./endpoints/publish";
-import populateFullTitle from "./hooks/populateFullTitle";
+import publish from "./hooks/publish";
 import Publish from "../../components/Publish";
+import publishEndpoint from "./endpoints/publishEndpoint";
+import populateFullTitle from "./hooks/populateFullTitle";
+import IsPublished from "../../components/IsPublished";
 
 const Newspapers: CollectionConfig = {
   slug: "newspapers",
@@ -23,8 +25,9 @@ const Newspapers: CollectionConfig = {
     defaultColumns: ["fullTitle", "issue", "published", "sites"],
     group: "Content",
   },
-  endpoints: [getByIssue, subscribe, publish],
+  endpoints: [getByIssue, subscribe, publishEndpoint],
   hooks: {
+    // beforeChange: [publish],
     afterChange: [
       ({ req: { payload }, doc }) => {
         regenPage({
@@ -54,12 +57,14 @@ const Newspapers: CollectionConfig = {
           type: "date",
           defaultValue: () => {
             const d = new Date();
+            d.setHours(0, 0, 0, 0);
             return d;
           },
           admin: {
             width: "50%",
             date: {
               pickerAppearance: "monthOnly",
+              displayFormat: "MM/yyyy",
             },
           },
         },
@@ -108,19 +113,30 @@ const Newspapers: CollectionConfig = {
         readOnly: true,
         components: {
           Field: () => null,
-        }
+        },
       },
       defaultValue: false,
     },
     {
-      name: "publishButton",
+      name: "publishManually",
       type: "ui",
       admin: {
         position: "sidebar",
         components: {
-          Field: Publish
+          Field: Publish,
         },
-        condition: (data, siblingData) => !siblingData?.published,
+        condition: (_, siblingData) => !siblingData?.published,
+      },
+    },
+    {
+      name: "isPublished",
+      type: "ui",
+      admin: {
+        position: "sidebar",
+        components: {
+          Field: IsPublished,
+        },
+        condition: (_, siblingData) => !!siblingData?.published,
       },
     },
   ],

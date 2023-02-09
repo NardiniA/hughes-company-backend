@@ -1,15 +1,17 @@
 export const formatEmails = (
+  data: any,
+  site: any,
   newspaper: any,
   contacts: any
 ): object | null => {
   if (contacts) {
-    const fileDate = new Date(newspaper?.publishDate).toLocaleDateString("en-GB", {
+    const fileDate = new Date(data?.publishDate).toLocaleDateString("en-GB", {
       month: "long",
       year: "numeric",
     });
-    const fileName = `${newspaper?.slug}-${fileDate
+    const fileName = `${site?.slug}-${fileDate
       .toLowerCase()
-      .replace(/ /g, "-")}-newspaper.${newspaper?.newspaper?.cloudinary?.format}`;
+      .replace(/ /g, "-")}-newspaper.${newspaper?.cloudinary?.format}`;
 
     const subs = contacts.map(({ email, attributes }) => ({
       email,
@@ -22,16 +24,16 @@ export const formatEmails = (
         name: "Antonio Nardini",
       },
       to: subs,
-      subject: `New ${newspaper?.sites?.name} newspaper`,
+      subject: `New ${site?.name} newspaper`,
       templateId: 1,
       params: {
-        subtitle: newspaper?.fullTitle,
-        file: newspaper?.newspaper?.url,
-        url: `${newspaper?.sites?.url}/newspapers/${newspaper?.issue}`,
+        subtitle: data?.fullTitle,
+        file: newspaper?.url,
+        url: `${site?.url}/newspapers/${data?.issue}`,
       },
       attachment: [
         {
-          url: newspaper?.newspaper?.url,
+          url: newspaper?.url,
           name: fileName,
         },
       ],

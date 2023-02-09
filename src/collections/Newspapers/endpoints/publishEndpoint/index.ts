@@ -1,7 +1,7 @@
 import { Endpoint } from "payload/config";
-import { getContacts } from "./utilities/getContacts";
-import { formatEmails } from "./utilities/formatEmails";
-import { sendEmails } from "./utilities/sendEmails";
+import { getContacts } from "../../hooks/publish/utilities/getContacts";
+import { formatEmails } from "../../hooks/publish/utilities/formatEmails";
+import { sendEmails } from "../../hooks/publish/utilities/sendEmails";
 
 const publish: Endpoint = {
     path: "/actions/publish",
@@ -25,24 +25,14 @@ const publish: Endpoint = {
 
             if (!contacts) throw new Error("No contacts found");
 
-            const emailsToSend = formatEmails(newspaper, contacts);
+            const emailsToSend = formatEmails(newspaper, newspaper?.sites, newspaper?.newspaper, contacts);
 
             if (!emailsToSend) throw new Error("Unable to format emails");
 
             const { status, response } = await sendEmails(emailsToSend);
 
             if (status !== 200) throw new Error(response);
-            else {
-                await payload.update({
-                    collection: "newspapers",
-                    id: String(newspaper?.id),
-                    data: {
-                        "published": true
-                    }
-                });
-
-                return res.status(200).json({ published: true })
-            };
+            else return res.status(200).json({ published: true });
         } catch (err) {
             console.error(err);
             return res.status(500).json({ message: err?.cause?.req?.statusText || err || "Interal Server Error", error: err })

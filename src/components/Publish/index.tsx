@@ -4,7 +4,6 @@ import { useDocumentInfo } from "payload/dist/admin/components/utilities/Documen
 
 const Publish: React.FC = () => {
   const { id, publishedDoc } = useDocumentInfo();
-
   const [showbanner, setShowBanner] = useState<boolean>(false);
   const [banner, setBanner] = useState<{
     type: "error" | "success" | "info" | "default";
@@ -14,76 +13,93 @@ const Publish: React.FC = () => {
     text: "Newspaper sent out!",
   });
 
-  const onClose = (): void => {
-    setShowBanner(false);
-  }
+  const onClose = (): void => setShowBanner(false);
 
   const handleClick = async (): Promise<void> => {
     setShowBanner(false);
 
     try {
-        const req = await fetch(`/api/newspapers/actions/publish`, {
-          method: "post",
-          headers: {
-            "Content-Type": "application/json",
+      const req = await fetch("/api/newspapers/actions/publish", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: id,
+          secret: "sRpnVhSIazGSxahPu5huJRwSoXIb64kRCsFWsBVC8Zg",
+        }),
+      });
+
+      if (!req?.ok)
+        throw new Error("Unable to publish newspaper", {
+          cause: {
+            req,
           },
-          body: JSON.stringify({
-            id: id,
-            secret: "sRpnVhSIazGSxahPu5huJRwSoXIb64kRCsFWsBVC8Zg",
-          }),
         });
 
-        if (!req?.ok) throw new Error("Unable to publish newspaper", {
-            cause: {
-                req,
-            },
-        });
+      const res = await req.json();
 
-        const res = await req.json();
-
-        if (!!res?.published) {
-            setBanner({
-                type: "success",
-                text: "Newspaper published!",
-            });
-        } else {
-            setBanner({
-                type: "error",
-                text: "Unable to publish newspaper",
-            });
-        }
-    } catch (err) {
-        console.error(err);
+      if (!!res?.published) {
         setBanner({
-            type: "error",
-            text: err?.cause?.req?.statusText || "Unable to publish newspaper",
+          type: "success",
+          text: "Newspaper published!",
         });
+      } else {
+        setBanner({
+          type: "error",
+          text: "Unable to publish newspaper",
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      setBanner({
+        type: "error",
+        text: err?.cause?.req?.statusText || "Unable to publish newspaper",
+      });
     }
 
     setShowBanner(true);
-    return;  
+    return;
   };
 
-  if (!!publishedDoc) return (
-    <>
-      <Button
-        className="w-100"
-        type="button"
-        el="button"
-        onClick={handleClick}
-        tooltip="Send out newspaper email marketing"
-        buttonStyle="secondary"
-      >
-        Publish
-      </Button>
+  if (!!publishedDoc)
+    return (
+      <>
+        <Button
+          className="w-100"
+          type="button"
+          el="button"
+          onClick={handleClick}
+          tooltip="Send out newspaper email marketing"
+          buttonStyle="secondary"
+        >
+          Publish
+        </Button>
 
-      {showbanner && banner?.text && banner?.type && (
         <div>
-          <Banner className="w-100 text-left justify-content-between" type={banner?.type} icon={<X />} alignIcon="right" onClick={onClose}>{banner?.text}</Banner>
+          <Banner
+            className="w-100 text-left justify-content-between"
+            type="info"
+          >
+            NOTE: This button does not disappear after publishing. Make sure you do not accidentally publish twice.
+          </Banner>
         </div>
-      )}
-    </>
-  );
+
+        {showbanner && banner?.text && banner?.type && (
+          <div>
+            <Banner
+              className="w-100 text-left justify-content-between"
+              type={banner?.type}
+              icon={<X />}
+              alignIcon="right"
+              onClick={onClose}
+            >
+              {banner?.text}
+            </Banner>
+          </div>
+        )}
+      </>
+    );
 
   return null;
 };
