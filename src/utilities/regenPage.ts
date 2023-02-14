@@ -23,17 +23,13 @@ export const regenPage = async ({
     }
 
     try {
-        if (path) {
-            path.forEach(async (p) => {
-                const res = await fetch(`${site?.url}/api/revalidate?secret=${process.env.PAYLOAD_PRIVATE_NEXTJS_REVALIDATE_KEY}&path=${p}`);
+        const res = await fetch(`${site?.url}/api/revalidate?secret=${process.env.PAYLOAD_PRIVATE_NEXTJS_REVALIDATE_KEY}&path=${path.join(",")}`);
 
-                if (res.ok) {
-                    payload.logger.info(`Revalidated path ${p}`);
-                }
-                else {
-                    payload.logger.error(`Error revalidating path ${p}`);
-                }
-            });
+        if (res.ok) {
+            payload.logger.info(`Revalidated path ${path}`);
+        }
+        else {
+            payload.logger.error(`Error revalidating path ${path}`);
         }
     } catch (err) {
         payload.logger.error(`Error hitting revalidate path ${path}`);
