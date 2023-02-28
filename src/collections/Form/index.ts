@@ -1,5 +1,6 @@
 import { CollectionConfig } from "payload/types";
 import { isAdminOrEditor } from "../../access/isAdminOrEditor";
+import { regenAllSites } from "../../utilities/regenAllSites";
 
 const Form: Partial<CollectionConfig> = {
   access: {
@@ -11,6 +12,15 @@ const Form: Partial<CollectionConfig> = {
   admin: {
     defaultColumns: ["title", "fields", "submitButtonLabel"],
     group: "Content",
+  },
+  hooks: {
+    afterChange: [
+      ({ req: { payload } }) => {
+        regenAllSites({
+          payload,
+        });
+      }
+    ]
   },
   fields: [
     {
