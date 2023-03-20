@@ -110,9 +110,10 @@ const Newspapers: CollectionConfig = {
       type: "checkbox",
       admin: {
         position: "sidebar",
-        readOnly: true,
-        components: {
-          Field: () => null,
+        description: "Has this newspaper already been published before?",
+        condition: (data) => {
+          if (!!data?.published) return false;
+          return true;
         },
       },
       defaultValue: false,
