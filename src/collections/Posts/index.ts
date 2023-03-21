@@ -1,3 +1,4 @@
+import payload from "payload";
 import { CollectionConfig } from "payload/types";
 import { isAdminOrEditor } from "../../access/isAdminOrEditor";
 import sites from "../../fields/sites";
@@ -105,13 +106,15 @@ const Posts: CollectionConfig = {
             relationTo: "advertising",
             hasMany: true,
             required: true,
+            min: 1,
+            max: 3,
             admin: {
                 isSortable: true,
             },
             validate: (val) => {
                 if (val?.length === 3) return true;
                 return "Must have 3 adverts."; 
-            }
+            },
         }
     ],
 }
